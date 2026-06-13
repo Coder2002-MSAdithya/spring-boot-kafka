@@ -8,9 +8,8 @@ group = 'com'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
 }
 
 configurations {
@@ -21,17 +20,24 @@ configurations {
 
 repositories {
 	mavenCentral()
+	mavenLocal()
 }
 
+def kafkaClientsJar = file("${System.getProperty('user.home')}/.m2/repository/org/apache/kafka/kafka-clients/4.0.0/kafka-clients-4.0.0.jar")
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.kafka:spring-kafka'
+	implementation files("${rootDir}/../difc-common/build/libs/difc-common-0.1.0.jar")
+	if (kafkaClientsJar.exists()) {
+		implementation files(kafkaClientsJar)
+	} else {
+		implementation 'org.apache.kafka:kafka-clients:4.0.0'
+	}
+	implementation 'org.springframework.boot:spring-boot-starter-data-couchbase'
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.kafka:spring-kafka-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

@@ -1,0 +1,28 @@
+plugins {
+    id 'java-library'
+}
+
+group = 'com.springbootkafka'
+version = '0.1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+def kafkaClientsJar = file("${System.getProperty('user.home')}/.m2/repository/org/apache/kafka/kafka-clients/4.0.0/kafka-clients-4.0.0.jar")
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    if (kafkaClientsJar.exists()) {
+        api files(kafkaClientsJar)
+    } else {
+        api 'org.apache.kafka:kafka-clients:4.0.0'
+    }
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+    implementation 'org.springframework.kafka:spring-kafka:3.2.4'
+}

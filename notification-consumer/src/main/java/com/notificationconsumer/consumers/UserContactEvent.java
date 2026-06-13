@@ -6,22 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
+/** Contact payload (DIFC tag user-contact). Contains no street address. */
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserCreatedEvent {
-    private Long id;
+public class UserContactEvent {
+    private Long userId;
+    private String firstName;
+    private String lastName;
     private String email;
-    private Boolean status;
 
-    public static Notification EventToNotificationEntity(UserCreatedEvent event) {
+    public static Notification toNotification(final UserContactEvent event) {
         return Notification.builder()
-                .userId(event.getId())
+                .userId(event.getUserId())
                 .email(event.getEmail())
                 .isSend(Boolean.TRUE)
                 .build();

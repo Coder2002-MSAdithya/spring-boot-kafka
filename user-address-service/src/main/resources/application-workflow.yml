@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:addressdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+kafka:
+  host: localhost:9092,localhost:9094
+  client-id: user-address-svc
+  topics:
+    user-created:
+      topic: user-service.user_created.1
+      consumerGroup: address-service-user-created-consumer

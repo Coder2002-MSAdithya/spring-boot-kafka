@@ -26,11 +26,25 @@ Both the **User Address Service** and **Notification Service** listen to the sam
 - Couchbase
 - Docker
 
-## Getting Started
+## DIFC + SASL workflow (difc-for-kafka)
+
+For a secured end-to-end demo (KRaft cluster, SCRAM principals, DIFC tags `user-contact` / `user-shipping` on `user-service.user_created.1`), see:
+
+```bash
+cd config/security
+chmod +x *.sh
+./run-workflow-from-scratch.sh
+```
+
+Logs: `/tmp/sbk-workflow-logs/`. Details: [config/security/README.md](config/security/README.md).
+
+Requires DIFC-enabled `kafka-clients` 4.0.0 in local Maven (`difc-for-kafka` `./gradlew publishToMavenLocal`) and JDK 21+.
+
+## Getting Started (original Docker demo)
 
 ### Prerequisites
 
-- JDK 17
+- JDK 17+
 - Gradle 
 - Docker
 

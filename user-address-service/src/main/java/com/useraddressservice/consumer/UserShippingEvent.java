@@ -6,17 +6,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/** Shipping payload (DIFC tag user-shipping). Contains no email or name. */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreatedEvent {
-    private Long id;
+public class UserShippingEvent {
+    private Long userId;
     private String addressText;
 
-    public static Address getAddressEntityFromEvent(UserCreatedEvent event) {
+    public static Address toAddressEntity(final UserShippingEvent event) {
         return Address.builder()
-                .userId(event.getId())
+                .userId(event.getUserId())
                 .addressText(event.getAddressText())
                 .build();
     }
