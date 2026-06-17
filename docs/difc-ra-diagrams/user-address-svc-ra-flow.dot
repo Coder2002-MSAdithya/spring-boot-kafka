@@ -1,0 +1,9 @@
+digraph ra {
+  graph [rankdir=TB, bgcolor="white", fontname="Helvetica", splines=ortho, nodesep=0.35, ranksep=0.5, ordering="out"];
+  node [fontname="Helvetica", fontsize=11, style=filled, height=0.3, margin="0.08,0.04"];
+  edge [fontname="Helvetica", color="#444444", arrowsize=0.65];
+  label="UserAddressServiceApplication (user-address-svc)\nRelational algebra (tree)";
+  labelloc=t;
+  fontsize=14;
+  empty [label="No RA analysis\n(table-only / producer-only)", shape=note, fillcolor="#f8d7da"];
+}

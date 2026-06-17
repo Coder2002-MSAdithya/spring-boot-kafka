@@ -1,0 +1,15 @@
+digraph policy {
+  graph [rankdir=TB, bgcolor="white", fontname="Helvetica", splines=polyline, nodesep=0.45, ranksep=0.55];
+  node [fontname="Helvetica", fontsize=11, style=filled, height=0.35];
+  edge [fontname="Helvetica", fontsize=9, color="#444444", arrowsize=0.7];
+  label="UserServiceApplication (user-svc)\nProcessing policy graph (agent topology)";
+  labelloc=t;
+  fontsize=14;
+  n_comp_app_client [label="application (kafka-client)", shape=box, fillcolor="#f0f0f0"];
+  n_comp_app_client_producer_op_0 [label="producer()", shape=box, fillcolor="#cce5ff"];
+  n_comp_app_client_producer_op_1 [label="sendWithTags()", shape=box, fillcolor="#cce5ff"];
+  n_topic_user_service_user_created_1 [label="user-service.user_created.1", shape=ellipse, fillcolor="#d4edda"];
+  n_comp_app_client -> n_comp_app_client_producer_op_0 [label="ingress"];
+  n_comp_app_client_producer_op_0 -> n_comp_app_client_producer_op_1 [label="input"];
+  n_comp_app_client_producer_op_1 -> n_topic_user_service_user_created_1 [label="writes"];
+}

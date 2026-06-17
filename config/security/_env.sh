@@ -14,6 +14,8 @@ JAAS_CONFIG="${SCRIPT_DIR}/kafka_server_jaas.conf"
 ADMIN_CONFIG="${SCRIPT_DIR}/admin-client.properties"
 
 export BOOTSTRAP_SERVERS="${BOOTSTRAP_SERVERS:-localhost:9092,localhost:9094}"
+export STATE_DIR="${STATE_DIR:-/tmp/sbk-kafka-demo}"
+export POLICY_AGENT_ALLOWED_EXTERNAL_HOSTS="${POLICY_AGENT_ALLOWED_EXTERNAL_HOSTS:-}"
 export KAFKA_OPTS="-Djava.security.auth.login.config=${JAAS_CONFIG}"
 
 DIFC_COMMON_JAR="${PROJECT_HOME}/difc-common/build/libs/difc-common-0.1.0.jar"

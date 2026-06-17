@@ -4,7 +4,10 @@ set -euo pipefail
 source "$(dirname "$0")/_env.sh"
 
 LOG_ROOT="${LOG_ROOT:-/tmp/sbk-workflow-logs}"
-mkdir -p "${LOG_ROOT}"
+STATE_DIR="${STATE_DIR:-/tmp/sbk-kafka-demo}"
+export STATE_DIR LOG_ROOT
+mkdir -p "${LOG_ROOT}" "${STATE_DIR}/policy"
+rm -rf "${STATE_DIR}/policy"/*
 : > "${LOG_ROOT}/pids.txt"
 
 kill_listeners() {
