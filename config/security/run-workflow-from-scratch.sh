@@ -209,6 +209,11 @@ summarize broker-1 'DIFC|ADD_CLIENT_PRIVS|Final message tags|user-contact|user-s
 summarize broker-2 'DIFC|ADD_CLIENT_PRIVS|Final message tags|user-contact|user-shipping'
 
 echo ""
+echo "=== Expression lineage (spring-boot-kafka — allow-list only) ==="
+grep '\[DIFC\] grantLineageVerify' "${LOG_ROOT}/user-service.log" 2>/dev/null | tail -10 \
+  || echo "(no grantLineageVerify lines)"
+
+echo ""
 echo "=== Verification ==="
 FAIL=0
 send_ok=$(grep -c 'sendWithTags OK' "${LOG_ROOT}/user-service.log" 2>/dev/null || true)

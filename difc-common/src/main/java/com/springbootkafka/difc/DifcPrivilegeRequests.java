@@ -79,6 +79,12 @@ public final class DifcPrivilegeRequests {
             System.out.print(denyLine);
             return;
         }
+        System.out.printf(
+                "[DIFC] grantLineageVerify workflow=spring-boot-kafka service=%s requester=%s tag=%s "
+                    + "method=allow-list-only note=expression-lineage-not-used-for-CAN_ADD%n",
+                serviceName,
+                requester,
+                tagName);
         final AddClientPrivsResponseData response =
                 producer.addClientPrivs(requester, tagName, capability);
         final String line = String.format(
