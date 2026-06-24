@@ -26,4 +26,12 @@ echo "Formatting broker 2 (node 3)..."
 "${KAFKA_HOME}/bin/kafka-storage.sh" format --no-initial-controllers -t "${CLUSTER_ID}" \
   -c "${BROKER2_CONFIG}"
 
-echo "Done. Start: start-controller.sh → start-broker-1.sh → start-broker-2.sh"
+echo "Formatting broker 3 (node 4)..."
+"${KAFKA_HOME}/bin/kafka-storage.sh" format --no-initial-controllers -t "${CLUSTER_ID}" \
+  -c "${BROKER3_CONFIG}"
+
+echo "Formatting broker 4 (node 5)..."
+"${KAFKA_HOME}/bin/kafka-storage.sh" format --no-initial-controllers -t "${CLUSTER_ID}" \
+  -c "${BROKER4_CONFIG}"
+
+echo "Done. Start: start-controller.sh → start-broker-1.sh → start-broker-2.sh → start-broker-3.sh → start-broker-4.sh"

@@ -27,7 +27,7 @@ grantor_policy_trust_java_opts() {
   cat <<EOF
 -Dpolicy.grantor.trusted.ca.path=${trusted_ca}
 -Dpolicy.registry.dir=${state_dir}/policy
--Dpolicy.agent.kafka.bootstrap=${BOOTSTRAP_SERVERS:-localhost:9092,localhost:9094}
+-Dpolicy.agent.kafka.bootstrap=${BOOTSTRAP_SERVERS:-localhost:9092,localhost:9094,localhost:9096,localhost:9098}
 EOF
 }
 

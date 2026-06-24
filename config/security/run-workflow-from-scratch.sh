@@ -12,7 +12,7 @@ rm -rf "${STATE_DIR}/policy"/*
 
 kill_listeners() {
   echo "Stopping prior demo processes..."
-  for port in 9092 9094 9093 8801 8802 8803; do
+  for port in 9092 9094 9096 9098 9093 8801 8802 8803; do
     if command -v fuser >/dev/null 2>&1; then
       fuser -k "${port}/tcp" 2>/dev/null || true
     fi
@@ -106,8 +106,14 @@ start_bg broker-1 env KAFKA_OPTS="-Djava.security.auth.login.config=${JAAS_CONFI
   "${KAFKA_HOME}/bin/kafka-server-start.sh" "${BROKER1_CONFIG}"
 start_bg broker-2 env KAFKA_OPTS="-Djava.security.auth.login.config=${JAAS_CONFIG}" \
   "${KAFKA_HOME}/bin/kafka-server-start.sh" "${BROKER2_CONFIG}"
+start_bg broker-3 env KAFKA_OPTS="-Djava.security.auth.login.config=${JAAS_CONFIG}" \
+  "${KAFKA_HOME}/bin/kafka-server-start.sh" "${BROKER3_CONFIG}"
+start_bg broker-4 env KAFKA_OPTS="-Djava.security.auth.login.config=${JAAS_CONFIG}" \
+  "${KAFKA_HOME}/bin/kafka-server-start.sh" "${BROKER4_CONFIG}"
 wait_for_port 9092 broker-1 90
 wait_for_port 9094 broker-2 90
+wait_for_port 9096 broker-3 90
+wait_for_port 9098 broker-4 90
 wait_for_kafka 90
 
 echo "=== ACLs and topics ==="
@@ -207,6 +213,11 @@ summarize user-address-service '\[AddressService\]|\[DIFC\]|user-shipping|Skippi
 summarize notification-consumer '\[NotificationService\]|\[DIFC\]|user-contact|Skipping|welcome'
 summarize broker-1 'DIFC|ADD_CLIENT_PRIVS|Final message tags|user-contact|user-shipping'
 summarize broker-2 'DIFC|ADD_CLIENT_PRIVS|Final message tags|user-contact|user-shipping'
+
+echo ""
+echo "=== DIFC grant decisions (user-service grantor) ==="
+grep -E '\[DIFC\] (grantEval|grantDenied|grantExternalVerified|grantDeniedExternal|GRANT-DECISION|grantPrivilege)' \
+  "${LOG_ROOT}/user-service.log" 2>/dev/null | tail -30 || echo "(no grant lines on user-service)"
 
 echo ""
 echo "=== Expression lineage (spring-boot-kafka — allow-list only) ==="
